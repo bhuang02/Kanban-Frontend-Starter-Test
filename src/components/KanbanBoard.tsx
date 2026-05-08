@@ -20,7 +20,11 @@ function KanbanBoard() {
       const data: Item[] = await response.json();
       setItems(data);
     } catch (err: unknown) {
-      setError(err.message);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     } finally {
       setLoading(false);
       toast("The items have been loaded successfully");
